@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "14999057769396977441"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "10660520916707434118"
+    },
+    "name": "Hosting Environment Custom DNS Suffix Configuration",
+    "description": "This module deploys a Hosting Environment Custom DNS Suffix Configuration.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "hostingEnvironmentName": {

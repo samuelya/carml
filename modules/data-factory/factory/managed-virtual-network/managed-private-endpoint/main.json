@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "15894355068813582548"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "1490870890954327678"
+    },
+    "name": "Data Factory Managed Virtual Network Managed PrivateEndpoints",
+    "description": "This module deploys a Data Factory Managed Virtual Network Managed Private Endpoint.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "dataFactoryName": {

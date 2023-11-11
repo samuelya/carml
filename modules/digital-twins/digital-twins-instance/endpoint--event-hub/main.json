@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "11967486057366992053"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "1200386987193874100"
+    },
+    "name": "Digital Twins Instance EventHub Endpoint",
+    "description": "This module deploys a Digital Twins Instance EventHub Endpoint.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {
@@ -25,13 +28,13 @@
     "authenticationType": {
       "type": "string",
       "defaultValue": "IdentityBased",
-      "metadata": {
-        "description": "Optional. Specifies the authentication type being used for connecting to the endpoint. If 'KeyBased' is selected, a connection string must be specified (at least the primary connection string). If 'IdentityBased' is selected, the endpointUri and entityPath properties must be specified."
-      },
       "allowedValues": [
         "IdentityBased",
         "KeyBased"
-      ]
+      ],
+      "metadata": {
+        "description": "Optional. Specifies the authentication type being used for connecting to the endpoint. If 'KeyBased' is selected, a connection string must be specified (at least the primary connection string). If 'IdentityBased' is selected, the endpointUri and entityPath properties must be specified."
+      }
     },
     "deadLetterSecret": {
       "type": "securestring",
@@ -58,7 +61,7 @@
       "type": "securestring",
       "defaultValue": "",
       "metadata": {
-        "description": "Optional. SecondaryConnectionString of the endpoint for key-based authentication. Will be obfuscated during read."
+        "description": "Optional. SecondaryConnectionString of the endpoint for key-based authentication. Will be obfuscated during read. Only used if the `authenticationType` is \"KeyBased\"."
       }
     },
     "entityPath": {
@@ -72,7 +75,7 @@
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Optional. The URL of the EventHub namespace for identity-based authentication. It must include the protocol 'sb://'."
+        "description": "Optional. The URL of the EventHub namespace for identity-based authentication. It must include the protocol 'sb://' (i.e. sb://xyz.servicebus.windows.net)."
       }
     },
     "enableDefaultTelemetry": {

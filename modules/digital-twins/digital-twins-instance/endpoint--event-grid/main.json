@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "13209746023702628221"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "15429197908359098698"
+    },
+    "name": "Digital Twins Instance Event Grid Endpoints",
+    "description": "This module deploys a Digital Twins Instance Event Grid Endpoint.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {

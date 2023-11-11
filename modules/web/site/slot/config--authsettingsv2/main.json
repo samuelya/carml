@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "4506238262937483474"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "16157844933162881953"
+    },
+    "name": "Site Slot Auth Settings V2 Config",
+    "description": "This module deploys a Site Auth Settings V2 Configuration.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "appName": {
@@ -65,7 +68,7 @@
     },
     {
       "type": "Microsoft.Web/sites/slots/config",
-      "apiVersion": "2022-03-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('{0}/{1}/{2}', parameters('appName'), parameters('slotName'), 'authsettingsV2')]",
       "kind": "[parameters('kind')]",
       "properties": "[parameters('authSettingV2Configuration')]"

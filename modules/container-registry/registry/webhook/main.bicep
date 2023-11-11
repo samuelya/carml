@@ -33,7 +33,7 @@ param action array = [
 param location string = resourceGroup().location
 
 @description('Optional. Tags of the resource.')
-param tags object = {}
+param tags object?
 
 @description('Optional. Custom headers that will be added to the webhook notifications.')
 param customHeaders object = {}
@@ -56,11 +56,11 @@ resource defaultTelemetry 'Microsoft.Resources/deployments@2021-04-01' = if (ena
   }
 }
 
-resource registry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
+resource registry 'Microsoft.ContainerRegistry/registries@2023-06-01-preview' existing = {
   name: registryName
 }
 
-resource webhook 'Microsoft.ContainerRegistry/registries/webhooks@2022-02-01-preview' = {
+resource webhook 'Microsoft.ContainerRegistry/registries/webhooks@2023-06-01-preview' = {
   name: name
   parent: registry
   location: location

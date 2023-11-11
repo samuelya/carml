@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "12960661892407144506"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "1120403064106188130"
+    },
+    "name": "Site Auth Settings V2 Config",
+    "description": "This module deploys a Site Auth Settings V2 Configuration.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "appName": {
@@ -59,7 +62,7 @@
     },
     {
       "type": "Microsoft.Web/sites/config",
-      "apiVersion": "2022-03-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('{0}/{1}', parameters('appName'), 'authsettingsV2')]",
       "kind": "[parameters('kind')]",
       "properties": "[parameters('authSettingV2Configuration')]"

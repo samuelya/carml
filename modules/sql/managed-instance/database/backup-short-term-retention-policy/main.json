@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "339225421683905916"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "1444574199601154138"
+    },
+    "name": "SQL Managed Instance Database Backup Short-Term Retention Policies",
+    "description": "This module deploys a SQL Managed Instance Database Backup Short-Term Retention Policy.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {
@@ -59,7 +62,7 @@
     },
     {
       "type": "Microsoft.Sql/managedInstances/databases/backupShortTermRetentionPolicies",
-      "apiVersion": "2022-02-01-preview",
+      "apiVersion": "2022-05-01-preview",
       "name": "[format('{0}/{1}/{2}', parameters('managedInstanceName'), parameters('databaseName'), parameters('name'))]",
       "properties": {
         "retentionDays": "[parameters('retentionDays')]"

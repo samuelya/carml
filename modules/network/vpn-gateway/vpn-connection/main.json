@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.20.4.51522",
-      "templateHash": "17179690973269419309"
+      "version": "0.22.6.54827",
+      "templateHash": "13660788048333105050"
     },
     "name": "VPN Gateway VPN Connections",
     "description": "This module deploys a VPN Gateway VPN Connection.",
@@ -113,7 +113,7 @@
       }
     },
     "sharedKey": {
-      "type": "string",
+      "type": "securestring",
       "defaultValue": "",
       "metadata": {
         "description": "Optional. SharedKey for the VPN connection."
@@ -151,7 +151,7 @@
     },
     {
       "type": "Microsoft.Network/vpnGateways/vpnConnections",
-      "apiVersion": "2022-07-01",
+      "apiVersion": "2023-04-01",
       "name": "[format('{0}/{1}', parameters('vpnGatewayName'), parameters('name'))]",
       "properties": {
         "connectionBandwidth": "[parameters('connectionBandwidth')]",

@@ -1,12 +1,16 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "languageVersion": "2.0",
   "contentVersion": "1.0.0.0",
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "12186382676600930554"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "5940192377706231381"
+    },
+    "name": "Application Gateway Web Application Firewall (WAF) Policies",
+    "description": "This module deploys an Application Gateway Web Application Firewall (WAF) Policy.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {
@@ -24,7 +28,7 @@
     },
     "tags": {
       "type": "object",
-      "defaultValue": {},
+      "nullable": true,
       "metadata": {
         "description": "Optional. Resource tags."
       }
@@ -58,8 +62,8 @@
       }
     }
   },
-  "resources": [
-    {
+  "resources": {
+    "defaultTelemetry": {
       "condition": "[parameters('enableDefaultTelemetry')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2021-04-01",
@@ -73,7 +77,7 @@
         }
       }
     },
-    {
+    "applicationGatewayWAFPolicy": {
       "type": "Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies",
       "apiVersion": "2022-11-01",
       "name": "[parameters('name')]",
@@ -85,7 +89,7 @@
         "policySettings": "[parameters('policySettings')]"
       }
     }
-  ],
+  },
   "outputs": {
     "name": {
       "type": "string",
@@ -113,7 +117,7 @@
       "metadata": {
         "description": "The location the resource was deployed into."
       },
-      "value": "[reference(resourceId('Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies', parameters('name')), '2022-11-01', 'full').location]"
+      "value": "[reference('applicationGatewayWAFPolicy', '2022-11-01', 'full').location]"
     }
   }
 }

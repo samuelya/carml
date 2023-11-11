@@ -4,15 +4,18 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "12195390626164178443"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "13208835708722733896"
+    },
+    "name": "Static Web App Site Custom Domains",
+    "description": "This module deploys a Static Web App Site Custom Domain.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {
       "type": "string",
       "metadata": {
-        "description": "Conditional. The custom domain name. Required if the template is used in a standalone deployment."
+        "description": "Required. The custom domain name."
       }
     },
     "staticSiteName": {

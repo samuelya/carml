@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "5956155025819321457"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "2131300650084383528"
+    },
+    "name": "Key Vault Access Policies",
+    "description": "This module deploys a Key Vault Access Policy.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "keyVaultName": {

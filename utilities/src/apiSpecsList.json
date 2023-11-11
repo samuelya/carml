@@ -21496,6 +21496,9 @@
       "2018-07-01-preview",
       "2019-05-01"
     ],
+    "locations/generateCopilotResponse": [
+      "2022-09-01-preview"
+    ],
     "locations/validateWorkflowExport": [
       "2022-09-01-preview"
     ],

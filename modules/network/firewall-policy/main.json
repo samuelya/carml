@@ -1,11 +1,32 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "languageVersion": "2.0",
   "contentVersion": "1.0.0.0",
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "13879906363559654168"
+      "version": "0.22.6.54827",
+      "templateHash": "14139283479148965374"
+    },
+    "name": "Firewall Policies",
+    "description": "This module deploys a Firewall Policy.",
+    "owner": "Azure/module-maintainers"
+  },
+  "definitions": {
+    "managedIdentitiesType": {
+      "type": "object",
+      "properties": {
+        "userAssignedResourcesIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Optional. The resource ID(s) to assign to the resource."
+          }
+        }
+      },
+      "nullable": true
     }
   },
   "parameters": {
@@ -24,16 +45,15 @@
     },
     "tags": {
       "type": "object",
-      "defaultValue": {},
+      "nullable": true,
       "metadata": {
         "description": "Optional. Tags of the Firewall policy resource."
       }
     },
-    "userAssignedIdentities": {
-      "type": "object",
-      "defaultValue": {},
+    "managedIdentities": {
+      "$ref": "#/definitions/managedIdentitiesType",
       "metadata": {
-        "description": "Optional. The ID(s) to assign to the resource."
+        "description": "Optional. The managed identity definition for this resource."
       }
     },
     "basePolicyResourceId": {
@@ -132,13 +152,13 @@
     "autoLearnPrivateRanges": {
       "type": "string",
       "defaultValue": "Disabled",
-      "metadata": {
-        "description": "Optional. The operation mode for automatically learning private ranges to not be SNAT."
-      },
       "allowedValues": [
         "Disabled",
         "Enabled"
-      ]
+      ],
+      "metadata": {
+        "description": "Optional. The operation mode for automatically learning private ranges to not be SNAT."
+      }
     },
     "threatIntelMode": {
       "type": "string",
@@ -203,12 +223,12 @@
     }
   },
   "variables": {
-    "identityType": "[if(not(empty(parameters('userAssignedIdentities'))), 'UserAssigned', 'None')]",
-    "identity": "[if(not(equals(variables('identityType'), 'None')), createObject('type', variables('identityType'), 'userAssignedIdentities', if(not(empty(parameters('userAssignedIdentities'))), parameters('userAssignedIdentities'), null())), null())]",
+    "formattedUserAssignedIdentities": "[reduce(map(coalesce(tryGet(parameters('managedIdentities'), 'userAssignedResourcesIds'), createArray()), lambda('id', createObject(format('{0}', lambdaVariables('id')), createObject()))), createObject(), lambda('cur', 'next', union(lambdaVariables('cur'), lambdaVariables('next'))))]",
+    "identity": "[if(not(empty(parameters('managedIdentities'))), createObject('type', if(not(empty(coalesce(tryGet(parameters('managedIdentities'), 'userAssignedResourcesIds'), createObject()))), 'UserAssigned', null()), 'userAssignedIdentities', if(not(empty(variables('formattedUserAssignedIdentities'))), variables('formattedUserAssignedIdentities'), null())), null())]",
     "enableReferencedModulesTelemetry": false
   },
-  "resources": [
-    {
+  "resources": {
+    "defaultTelemetry": {
       "condition": "[parameters('enableDefaultTelemetry')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2021-04-01",
@@ -222,9 +242,9 @@
         }
       }
     },
-    {
+    "firewallPolicy": {
       "type": "Microsoft.Network/firewallPolicies",
-      "apiVersion": "2022-07-01",
+      "apiVersion": "2023-04-01",
       "name": "[parameters('name')]",
       "location": "[parameters('location')]",
       "tags": "[parameters('tags')]",
@@ -249,7 +269,7 @@
         "transportSecurity": "[if(or(not(empty(parameters('keyVaultSecretId'))), not(empty(parameters('certificateName')))), createObject('certificateAuthority', createObject('keyVaultSecretId', if(not(empty(parameters('keyVaultSecretId'))), parameters('keyVaultSecretId'), null()), 'name', if(not(empty(parameters('certificateName'))), parameters('certificateName'), null()))), null())]"
       }
     },
-    {
+    "firewallPolicy_ruleCollectionGroups": {
       "copy": {
         "name": "firewallPolicy_ruleCollectionGroups",
         "count": "[length(parameters('ruleCollectionGroups'))]",
@@ -287,9 +307,12 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.19.5.34762",
-              "templateHash": "17712009459606794175"
-            }
+              "version": "0.22.6.54827",
+              "templateHash": "13617778659554817427"
+            },
+            "name": "Firewall Policy Rule Collection Groups",
+            "description": "This module deploys a Firewall Policy Rule Collection Group.",
+            "owner": "Azure/module-maintainers"
           },
           "parameters": {
             "firewallPolicyName": {
@@ -342,7 +365,7 @@
             },
             {
               "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
-              "apiVersion": "2022-07-01",
+              "apiVersion": "2023-04-01",
               "name": "[format('{0}/{1}', parameters('firewallPolicyName'), parameters('name'))]",
               "properties": {
                 "priority": "[parameters('priority')]",
@@ -376,10 +399,10 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/firewallPolicies', parameters('name'))]"
+        "firewallPolicy"
       ]
     }
-  ],
+  },
   "outputs": {
     "name": {
       "type": "string",
@@ -407,7 +430,7 @@
       "metadata": {
         "description": "The location the resource was deployed into."
       },
-      "value": "[reference(resourceId('Microsoft.Network/firewallPolicies', parameters('name')), '2022-07-01', 'full').location]"
+      "value": "[reference('firewallPolicy', '2023-04-01', 'full').location]"
     }
   }
 }

@@ -4,9 +4,12 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "6763736224574178406"
-    }
+      "version": "0.22.6.54827",
+      "templateHash": "14481617304679147684"
+    },
+    "name": "Dns Forwarding Rulesets Forwarding Rules",
+    "description": "This template deploys Forwarding Rule in a Dns Forwarding Ruleset.",
+    "owner": "Azure/module-maintainers"
   },
   "parameters": {
     "name": {

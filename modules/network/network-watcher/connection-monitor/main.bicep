@@ -9,7 +9,7 @@ param networkWatcherName string = 'NetworkWatcher_${resourceGroup().location}'
 param name string
 
 @description('Optional. Tags of the resource.')
-param tags object = {}
+param tags object?
 
 @description('Optional. Location for all resources.')
 param location string = resourceGroup().location
@@ -50,11 +50,11 @@ resource defaultTelemetry 'Microsoft.Resources/deployments@2021-04-01' = if (ena
   }
 }
 
-resource networkWatcher 'Microsoft.Network/networkWatchers@2022-07-01' existing = {
+resource networkWatcher 'Microsoft.Network/networkWatchers@2023-04-01' existing = {
   name: networkWatcherName
 }
 
-resource connectionMonitor 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01' = {
+resource connectionMonitor 'Microsoft.Network/networkWatchers/connectionMonitors@2023-04-01' = {
   name: name
   parent: networkWatcher
   tags: tags
